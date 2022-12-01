@@ -16,15 +16,33 @@
   <meta name="author" content="liung">
   <meta name="keywords" content="">
   
-    <meta property="og:type" content="article">
+    <meta name="description" content="一、环境准备 参考文章：三大框架SSH搭建web项目实例 参考视频：eclipse版ssh框架学习   Eclipse JDK 19  struct 2.5.22 spring 5.3.9 hibernate 5.8.0 tomcat 10.0.27  二、环境配置1.Eclipse： 文本编码  窗口（Window）–&gt;首选项（Preferences）–&gt;常规（General）–&amp;g">
+<meta property="og:type" content="article">
 <meta property="og:title" content="ssh搭建web">
 <meta property="og:url" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/index.html">
 <meta property="og:site_name" content="liung">
+<meta property="og:description" content="一、环境准备 参考文章：三大框架SSH搭建web项目实例 参考视频：eclipse版ssh框架学习   Eclipse JDK 19  struct 2.5.22 spring 5.3.9 hibernate 5.8.0 tomcat 10.0.27  二、环境配置1.Eclipse： 文本编码  窗口（Window）–&gt;首选项（Preferences）–&gt;常规（General）–&amp;g">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse.png">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse2.png">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse4.png">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse5.png">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse6.png">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse7.png">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse8.png">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse9.png">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse10.png">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse3.png">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse11.png">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/error1.png">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse12.png">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/struct1.png">
+<meta property="og:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/struct1.png">
 <meta property="article:published_time" content="2022-11-28T08:32:32.000Z">
-<meta property="article:modified_time" content="2022-11-28T08:32:32.499Z">
+<meta property="article:modified_time" content="2022-11-29T09:09:35.291Z">
 <meta property="article:author" content="liung">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
@@ -247,7 +265,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 words
+          2.8k words
         
       </span>
     
@@ -258,7 +276,7 @@
         
         
         
-          1 mins
+          24 mins
         
       </span>
     
@@ -309,7 +327,334 @@
             
               <div class="markdown-body">
                 
-                
+                <h1 id="一、环境准备"><a href="#一、环境准备" class="headerlink" title="一、环境准备"></a>一、环境准备</h1><blockquote>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u013020593/article/details/90481458?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522166962405016800186528161%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=166962405016800186528161&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduend~default-3-90481458-null-null.142%5Ev66%5Econtrol,201%5Ev3%5Econtrol_2,213%5Ev2%5Et3_control1&utm_term=ssh%20web&spm=1018.2226.3001.4187">三大框架SSH搭建web项目实例</a></p>
+<p>参考视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1a64y1b7EB/?spm_id_from=333.337.search-card.all.click&vd_source=68161a3fd8b9a914230d34df8ab6863b">eclipse版ssh框架学习</a></p>
+</blockquote>
+<ul>
+<li>Eclipse</li>
+<li>JDK 19 </li>
+<li>struct 2.5.22</li>
+<li>spring 5.3.9</li>
+<li>hibernate 5.8.0</li>
+<li>tomcat 10.0.27</li>
+</ul>
+<h1 id="二、环境配置"><a href="#二、环境配置" class="headerlink" title="二、环境配置"></a>二、环境配置</h1><h2 id="1-Eclipse："><a href="#1-Eclipse：" class="headerlink" title="1.Eclipse："></a>1.Eclipse：</h2><ul>
+<li>文本编码</li>
+</ul>
+<p>窗口（Window）–&gt;首选项（Preferences）–&gt;常规（General）–&gt;工作空间（Workspace）–&gt;</p>
+<p>文本文件编码（Text file encoding）选择其他（UTF-8）</p>
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse.png" srcset="/img/loading.gif" lazyload class="">
+
+<ul>
+<li>编辑辅助</li>
+</ul>
+<p>窗口（Window）–&gt;首选项（Preferences）–&gt;Java–&gt;编辑器（Editor）–&gt;内容辅助（Content Assist）–&gt;自动激活（Auto Activation）</p>
+<p>在.的后面把键盘上每个字母都打一遍（看自身需求）</p>
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse2.png" srcset="/img/loading.gif" lazyload class="">
+
+<ul>
+<li><p>配置Tomcat</p>
+<ul>
+<li><p>下载Tomcat</p>
+<p><a target="_blank" rel="noopener" href="https://tomcat.apache.org/">https://tomcat.apache.org/</a></p>
+<p>选择要的版本</p>
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse4.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>往下划根据电脑选择相应版本下载</p>
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse5.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>解压到自己的路径中</p>
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse6.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>配置环境变量</p>
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse7.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>在系统变量中的path添加%CATALINA_HOME%in 和 %CATALINA_HOME%lib</p>
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse8.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>以管理员身份打开cmd，然后进入 tomcat 的 bin 目录，输入 service.bat install</p>
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse9.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>双击bin下的startup.bat文件,在浏览器输入localhost:8080即可看到tomcat界面</p>
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse10.png" srcset="/img/loading.gif" lazyload class="">
+
+
+</li>
+<li><p>配置</p>
+<p>窗口（Window）–&gt;首选项（Preferences）–&gt;Server–&gt;Runtime Environment</p>
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse3.png" srcset="/img/loading.gif" lazyload class="">
+
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse11.png" srcset="/img/loading.gif" lazyload class="">
+
+<p>注意所选的版本需要跟刚刚下载的对应，否则报错</p>
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/error1.png" srcset="/img/loading.gif" lazyload class=""></li>
+</ul>
+</li>
+<li><p>新建web应用</p>
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/eclipse12.png" srcset="/img/loading.gif" lazyload class=""></li>
+</ul>
+<h2 id="2-配置struct"><a href="#2-配置struct" class="headerlink" title="2.配置struct"></a>2.配置struct</h2><ul>
+<li><p>下载</p>
+<p><a target="_blank" rel="noopener" href="https://struts.apache.org/download">https://struts.apache.org/download</a></p>
+</li>
+<li><p>添加架包</p>
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/struct1.png" srcset="/img/loading.gif" lazyload class="">
+
+<img src="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/struct1.png" srcset="/img/loading.gif" lazyload class="">
+
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>struts2 - 必需架包</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>commons-fileupload-1.4.jar</td>
+</tr>
+<tr>
+<td>2</td>
+<td>commons-lang3-3.8.1.jar</td>
+</tr>
+<tr>
+<td>3</td>
+<td>freemarker-2.3.28.jar</td>
+</tr>
+<tr>
+<td>4</td>
+<td>javassist-3.20.0-GA.jar</td>
+</tr>
+<tr>
+<td>5</td>
+<td>log4j-api-2.11.1.jar</td>
+</tr>
+<tr>
+<td>6</td>
+<td>ognl-3.1.21.jar</td>
+</tr>
+<tr>
+<td>7</td>
+<td>struts2-core-2.5.20.jar</td>
+</tr>
+<tr>
+<td>8</td>
+<td>struts2-spring-plugin-2.5.20.jar（spring整合struts2时必需的插件）</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="3-配置spring"><a href="#3-配置spring" class="headerlink" title="3.配置spring"></a>3.配置spring</h2><ul>
+<li><p>下载</p>
+<p><a target="_blank" rel="noopener" href="https://repo.spring.io/libs-release-local/org/springframework/spring/">https://repo.spring.io/libs-release-local/org/springframework/spring/</a></p>
+</li>
+<li><p>添加架包</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>spring 4 - 必需架包（spring4中的所有架包）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>commons-logging-1.2.jar 从struts2中获取该架包</td>
+</tr>
+<tr>
+<td>2</td>
+<td>spring-aop-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>3</td>
+<td>spring-aspects-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>4</td>
+<td>spring-beans-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>5</td>
+<td>spring-context-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>6</td>
+<td>spring-context-support-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>7</td>
+<td>spring-core-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>8</td>
+<td>spring-expression-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>9</td>
+<td>spring-instrument-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>10</td>
+<td>spring-instrument-tomcat-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>11</td>
+<td>spring-jdbc-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>12</td>
+<td>spring-jms-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>13</td>
+<td>spring-messaging-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>14</td>
+<td>spring-orm-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>15</td>
+<td>spring-oxm-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>16</td>
+<td>spring-test-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>17</td>
+<td>spring-tx-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>18</td>
+<td>spring-web-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>19</td>
+<td>spring-webmvc-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>20</td>
+<td>spring-webmvc-portlet-4.3.18.RELEASE.jar</td>
+</tr>
+<tr>
+<td>21</td>
+<td>spring-websocket-4.3.18.RELEASE.jar</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="4-配置hibernate"><a href="#4-配置hibernate" class="headerlink" title="4.配置hibernate"></a>4.配置hibernate</h2><ul>
+<li><p>下载</p>
+<p><a target="_blank" rel="noopener" href="https://sourceforge.net/projects/hibernate/files/hibernate-orm/">https://sourceforge.net/projects/hibernate/files/hibernate-orm/</a></p>
+</li>
+<li><p>添加架包</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>hibernate 4 - 必需架包+可选 &#x2F;lib&#x2F;optional&#x2F;目录下为可选架包</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>antlr-2.7.7.jar</td>
+</tr>
+<tr>
+<td>2</td>
+<td>dom4j-1.6.1.jar</td>
+</tr>
+<tr>
+<td>3</td>
+<td>hibernate-commons-annotations-4.0.5.Final.jar</td>
+</tr>
+<tr>
+<td>4</td>
+<td>hibernate-core-4.3.11.Final.jar</td>
+</tr>
+<tr>
+<td>5</td>
+<td>hibernate-jpa-2.1-api-1.0.0.Final.jar</td>
+</tr>
+<tr>
+<td>6</td>
+<td>jandex-1.1.0.Final.jar</td>
+</tr>
+<tr>
+<td>7</td>
+<td>javassist-3.18.1-GA.jar</td>
+</tr>
+<tr>
+<td>8</td>
+<td>jboss-logging-3.1.3.GA.jar</td>
+</tr>
+<tr>
+<td>9</td>
+<td>jboss-logging-annotations-1.2.0.Beta1.jar</td>
+</tr>
+<tr>
+<td>10</td>
+<td>jboss-transaction-api_1.2_spec-1.0.0.Final.jar</td>
+</tr>
+<tr>
+<td>11</td>
+<td>ehcache-core-2.4.3.jar          见&#x2F;lib&#x2F;optional&#x2F;ehcache&#x2F;</td>
+</tr>
+<tr>
+<td>12</td>
+<td>hibernate-ehcache-4.3.11.Final.jar见&#x2F;lib&#x2F;optional&#x2F;ehcache&#x2F;</td>
+</tr>
+<tr>
+<td>13</td>
+<td>slf4j-api-1.6.1.jar              见&#x2F;lib&#x2F;optional&#x2F;ehcache&#x2F;</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="5-单个架包"><a href="#5-单个架包" class="headerlink" title="5.单个架包"></a>5.单个架包</h2><ul>
+<li><p>下载</p>
+<p><a target="_blank" rel="noopener" href="https://mvnrepository.com/">https://mvnrepository.com/</a></p>
+</li>
+<li><p>添加架包</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>其他架包 到Maven资源库中下载</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>log4j-core-2.11.1.jar 日志要用到</td>
+</tr>
+<tr>
+<td>2</td>
+<td>mysql-connector-java-5.1.26-bin.jar mysql驱动包</td>
+</tr>
+<tr>
+<td>3</td>
+<td>aopalliance-1.0.jar    aop配置事务时用</td>
+</tr>
+<tr>
+<td>4</td>
+<td>aspectjrt-1.5.3.jar     aop配置事务时用</td>
+</tr>
+<tr>
+<td>5</td>
+<td>aspectjweaver-1.5.3.jar aop配置事务时用</td>
+</tr>
+<tr>
+<td>6</td>
+<td>commons-dbcp-1.4.jar 使用jdbc.properties配置数据库时用</td>
+</tr>
+<tr>
+<td>7</td>
+<td>commons-pool-1.6.jar <code>使用jdbc.properties配置数据库时用</code></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="6-Spring整合Hibernate"><a href="#6-Spring整合Hibernate" class="headerlink" title="6.Spring整合Hibernate"></a>6.Spring整合Hibernate</h2>
                 
               </div>
             
@@ -370,6 +715,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2022/12/02/web/" title="web">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">web</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
