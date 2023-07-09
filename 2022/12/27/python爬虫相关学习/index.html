@@ -1,0 +1,845 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="liung">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一、http请求与响应 参考：Python爬虫详解（一看就懂）  http请求请求报文包含：请求头，请求行，空行，请求数据    请求行：  请求方法，常见的请求方法有 GET、POST、PUT、DELETE、HEAD 客户端要获取的资源路径 是客户端使用的 HTTP 协议版本号   请求头：客户端向服务器发送请求的补充说明，比如说明访问者身份  请求体：客户端向服务器提交的数据，比如用户登录时需">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python爬虫相关学习">
+<meta property="og:url" content="http://example.com/2022/12/27/python%E7%88%AC%E8%99%AB%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="liung">
+<meta property="og:description" content="一、http请求与响应 参考：Python爬虫详解（一看就懂）  http请求请求报文包含：请求头，请求行，空行，请求数据    请求行：  请求方法，常见的请求方法有 GET、POST、PUT、DELETE、HEAD 客户端要获取的资源路径 是客户端使用的 HTTP 协议版本号   请求头：客户端向服务器发送请求的补充说明，比如说明访问者身份  请求体：客户端向服务器提交的数据，比如用户登录时需">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2022/12/27/python%E7%88%AC%E8%99%AB%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/http1.png">
+<meta property="og:image" content="http://example.com/2022/12/27/python%E7%88%AC%E8%99%AB%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/http2.png">
+<meta property="article:published_time" content="2022-12-27T04:31:35.000Z">
+<meta property="article:modified_time" content="2022-12-28T07:31:26.932Z">
+<meta property="article:author" content="liung">
+<meta property="article:tag" content="python 爬虫 正则表达式 Beautiful Soup">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2022/12/27/python%E7%88%AC%E8%99%AB%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/http1.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>python爬虫相关学习 - liung</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"DXLxZik8wN8nWS8hG0jMoEMj-gzGzoHsz","app_key":"BK2RDlJBgTFqlPmZANp7TWHZ","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>liung</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="python爬虫相关学习"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-27 12:31" pubdate>
+          December 27, 2022 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.8k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          65 mins
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> views
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">python爬虫相关学习</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="一、http请求与响应"><a href="#一、http请求与响应" class="headerlink" title="一、http请求与响应"></a>一、http请求与响应</h2><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_64036070/article/details/125398467?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522167202084216782428699608%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=167202084216782428699608&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~top_positive~default-3-125398467-null-null.142%5Ev68%5Econtrol,201%5Ev4%5Eadd_ask,213%5Ev2%5Et3_control1&utm_term=python%E7%88%AC%E8%99%AB&spm=1018.2226.3001.4187">Python爬虫详解（一看就懂）</a></p>
+</blockquote>
+<h4 id="http请求"><a href="#http请求" class="headerlink" title="http请求"></a>http请求</h4><p>请求报文包含：请求头，请求行，空行，请求数据</p>
+<img src="/2022/12/27/python%E7%88%AC%E8%99%AB%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/http1.png" srcset="/img/loading.gif" lazyload class="">
+
+<ul>
+<li><p>请求行：</p>
+<ul>
+<li>请求方法，常见的请求方法有 GET、POST、PUT、DELETE、HEAD</li>
+<li>客户端要获取的资源路径</li>
+<li>是客户端使用的 HTTP 协议版本号</li>
+</ul>
+</li>
+<li><p>请求头：客户端向服务器发送请求的补充说明，比如说明访问者身份</p>
+</li>
+<li><p>请求体：客户端向服务器提交的数据，比如用户登录时需要提高的账号密码信息。请求体并不是所有的请求都有的，比如一般的GET都不会带有请求体。</p>
+</li>
+</ul>
+<h4 id="http响应"><a href="#http响应" class="headerlink" title="http响应"></a>http响应</h4><p>响应报文包含：状态码，响应头，空行，响应正文。</p>
+<img src="/2022/12/27/python%E7%88%AC%E8%99%AB%E7%9B%B8%E5%85%B3%E5%AD%A6%E4%B9%A0/http2.png" srcset="/img/loading.gif" lazyload class="">
+
+<ul>
+<li>响应行：<ul>
+<li>服务端的 HTTP 版本号、</li>
+<li>响应状态码</li>
+<li>状态说明</li>
+</ul>
+</li>
+<li>响应头：请求头对应，是服务器对该响应的一些附加说明，比如响应内容的格式是什么，响应内容的长度有多少、什么时间返回给客户端的、甚至还有一些 Cookie 信息也会放在响应头里面。</li>
+<li>响应体：真正的响应数据，网页的 HTML 源代码。</li>
+</ul>
+<h2 id="二、Beautiful-Soup"><a href="#二、Beautiful-Soup" class="headerlink" title="二、Beautiful Soup"></a>二、Beautiful Soup</h2><blockquote>
+<p>参考：<a target="_blank" rel="noopener" href="https://beautifulsoup.readthedocs.io/zh_CN/v4.4.0/">Beautiful Soup 4.4.0 文档(中文版，部分翻译不准确)</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/">原文档（bs4.9.0）</a></p>
+<p>Beautiful Soup是一个可以从HTML或XML文件中提取数据的Python库.</p>
+</blockquote>
+<h4 id="解析器"><a href="#解析器" class="headerlink" title="解析器"></a>解析器</h4><p>不同的解析器可能影响代码执行结果，如果在分发给别人的代码中使用了 <code>BeautifulSoup</code> ，那么最好注明使用了哪种解析器，以减少不必要的麻烦。</p>
+<table>
+<thead>
+<tr>
+<th>解析器</th>
+<th>使用方法</th>
+<th>优势</th>
+<th>劣势</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Python标准库</td>
+<td><code>BeautifulSoup(markup, &quot;html.parser&quot;)</code></td>
+<td>1.Python的内置标准库  2.执行速度适中  3.文档容错能力强</td>
+<td>Python 2.7.3 or 3.2.2)前的版本中文档容错能力差</td>
+</tr>
+<tr>
+<td>lxml HTML 解析器</td>
+<td><code>BeautifulSoup(markup, &quot;lxml&quot;)</code></td>
+<td>1. 速度快  2. 文档容错能力强</td>
+<td>需要安装C语言库</td>
+</tr>
+<tr>
+<td>lxml XML 解析器</td>
+<td><code>BeautifulSoup(markup, [&quot;lxml-xml&quot;])``BeautifulSoup(markup, &quot;xml&quot;)</code></td>
+<td>1. 速度快  2. 唯一支持XML的解析器</td>
+<td>需要安装C语言库</td>
+</tr>
+<tr>
+<td>html5lib</td>
+<td><code>BeautifulSoup(markup, &quot;html5lib&quot;)</code></td>
+<td>1. 最好的容错性  2.以浏览器的方式解析文档  3.生成HTML5格式的文档</td>
+<td>1. 速度慢  2. 不依赖外部扩展</td>
+</tr>
+</tbody></table>
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>现有一段HTML文档（<strong>html_doc</strong>以及<strong>soup</strong>前篇使用，不再定义）：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs html">html_doc = &quot;&quot;&quot;<br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>The Dormouse&#x27;s story<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;title&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">b</span>&gt;</span>The Dormouse&#x27;s story<span class="hljs-tag">&lt;/<span class="hljs-name">b</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;story&quot;</span>&gt;</span>Once upon a time there were three little sisters; and their names were<br><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://example.com/elsie&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;sister&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;link1&quot;</span>&gt;</span>Elsie<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>,<br><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://example.com/lacie&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;sister&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;link2&quot;</span>&gt;</span>Lacie<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span> and<br><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;http://example.com/tillie&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;sister&quot;</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;link3&quot;</span>&gt;</span>Tillie<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>;<br>and they lived at the bottom of a well.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;story&quot;</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>&quot;&quot;&quot;<br></code></pre></td></tr></table></figure>
+
+<p>使用BeautifulSoup解析这段代码，能够得到一个 BeautifulSoup 的对象，并能按照标准的缩进格式的结构输出：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup<br>soup = BeautifulSoup(html_doc, <span class="hljs-string">&#x27;html.parser&#x27;</span>)<br><br><span class="hljs-built_in">print</span>(soup.prettify())<br><span class="hljs-comment"># &lt;html&gt;</span><br><span class="hljs-comment">#  &lt;head&gt;</span><br><span class="hljs-comment">#   &lt;title&gt;</span><br><span class="hljs-comment">#    The Dormouse&#x27;s story</span><br><span class="hljs-comment">#   &lt;/title&gt;</span><br><span class="hljs-comment">#  &lt;/head&gt;</span><br><span class="hljs-comment">#  &lt;body&gt;</span><br><span class="hljs-comment">#   &lt;p class=&quot;title&quot;&gt;</span><br><span class="hljs-comment">#    &lt;b&gt;</span><br><span class="hljs-comment">#     The Dormouse&#x27;s story</span><br><span class="hljs-comment">#    &lt;/b&gt;</span><br><span class="hljs-comment">#   &lt;/p&gt;</span><br><span class="hljs-comment">#   &lt;p class=&quot;story&quot;&gt;</span><br><span class="hljs-comment">#    Once upon a time there were three little sisters; and their names were</span><br><span class="hljs-comment">#    &lt;a class=&quot;sister&quot; href=&quot;http://example.com/elsie&quot; id=&quot;link1&quot;&gt;</span><br><span class="hljs-comment">#     Elsie</span><br><span class="hljs-comment">#    &lt;/a&gt;</span><br><span class="hljs-comment">#    ,</span><br><span class="hljs-comment">#    &lt;a class=&quot;sister&quot; href=&quot;http://example.com/lacie&quot; id=&quot;link2&quot;&gt;</span><br><span class="hljs-comment">#     Lacie</span><br><span class="hljs-comment">#    &lt;/a&gt;</span><br><span class="hljs-comment">#    and</span><br><span class="hljs-comment">#    &lt;a class=&quot;sister&quot; href=&quot;http://example.com/tillie&quot; id=&quot;link2&quot;&gt;</span><br><span class="hljs-comment">#     Tillie</span><br><span class="hljs-comment">#    &lt;/a&gt;</span><br><span class="hljs-comment">#    ; and they lived at the bottom of a well.</span><br><span class="hljs-comment">#   &lt;/p&gt;</span><br><span class="hljs-comment">#   &lt;p class=&quot;story&quot;&gt;</span><br><span class="hljs-comment">#    ...</span><br><span class="hljs-comment">#   &lt;/p&gt;</span><br><span class="hljs-comment">#  &lt;/body&gt;</span><br><span class="hljs-comment"># &lt;/html&gt;</span><br><br>soup.title<br><span class="hljs-comment"># &lt;title&gt;The Dormouse&#x27;s story&lt;/title&gt;</span><br><br>soup.title.name<br><span class="hljs-comment"># u&#x27;title&#x27;</span><br><br>soup.title.string<br><span class="hljs-comment"># u&#x27;The Dormouse&#x27;s story&#x27;</span><br><br>soup.title.parent.name<br><span class="hljs-comment"># u&#x27;head&#x27;</span><br><br>soup.p<br><span class="hljs-comment"># &lt;p class=&quot;title&quot;&gt;&lt;b&gt;The Dormouse&#x27;s story&lt;/b&gt;&lt;/p&gt;</span><br><br>soup.p[<span class="hljs-string">&#x27;class&#x27;</span>]<br><span class="hljs-comment"># u&#x27;title&#x27;</span><br><br>soup.a<br><span class="hljs-comment"># &lt;a class=&quot;sister&quot; href=&quot;http://example.com/elsie&quot; id=&quot;link1&quot;&gt;Elsie&lt;/a&gt;</span><br><br>soup.find_all(<span class="hljs-string">&#x27;a&#x27;</span>)<br><span class="hljs-comment"># [&lt;a class=&quot;sister&quot; href=&quot;http://example.com/elsie&quot; id=&quot;link1&quot;&gt;Elsie&lt;/a&gt;,</span><br><span class="hljs-comment">#  &lt;a class=&quot;sister&quot; href=&quot;http://example.com/lacie&quot; id=&quot;link2&quot;&gt;Lacie&lt;/a&gt;,</span><br><span class="hljs-comment">#  &lt;a class=&quot;sister&quot; href=&quot;http://example.com/tillie&quot; id=&quot;link3&quot;&gt;Tillie&lt;/a&gt;]</span><br><br>soup.find(<span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;link3&quot;</span>)<br><span class="hljs-comment"># &lt;a class=&quot;sister&quot; href=&quot;http://example.com/tillie&quot; id=&quot;link3&quot;&gt;Tillie&lt;/a&gt;</span><br><br><span class="hljs-comment">#从文档中找到所有&lt;a&gt;标签的链接：</span><br><span class="hljs-keyword">for</span> link <span class="hljs-keyword">in</span> soup.find_all(<span class="hljs-string">&#x27;a&#x27;</span>):<br>    <span class="hljs-built_in">print</span>(link.get(<span class="hljs-string">&#x27;href&#x27;</span>))<br>    <span class="hljs-comment"># http://example.com/elsie</span><br>    <span class="hljs-comment"># http://example.com/lacie</span><br>    <span class="hljs-comment"># http://example.com/tillie</span><br></code></pre></td></tr></table></figure>
+
+<p>将一段文档传入BeautifulSoup 的构造方法，就能得到一个文档的对象,，可以传入一段字符串或一个文件句柄。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup<br><br>soup1 = BeautifulSoup(<span class="hljs-built_in">open</span>(<span class="hljs-string">&quot;index.html&quot;</span>))<br><br>soup2 = BeautifulSoup(<span class="hljs-string">&quot;&lt;html&gt;data&lt;/html&gt;&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>首先，文档被转换成Unicode，并且HTML的实例都被转换成Unicode编码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">BeautifulSoup(<span class="hljs-string">&quot;Sacr&amp;eacute; bleu!&quot;</span>)<br>&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;Sacré bleu!&lt;/body&gt;&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<p>然后，Beautiful Soup选择最合适的解析器来解析这段文档，如果手动指定解析器那么Beautiful Soup会选择指定的解析器来解析文档。</p>
+<h4 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h4><p>Beautiful Soup将复杂HTML文档转换成一个复杂的树形结构，每个节点都是Python对象，所有对象可以归纳为4种：<code>Tag</code> ， <code>NavigableString</code> ， <code>BeautifulSoup</code> ， <code>Comment</code> 。</p>
+<h6 id="1-Tag"><a href="#1-Tag" class="headerlink" title="1. Tag"></a>1. Tag</h6><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">s = BeautifulSoup(<span class="hljs-string">&#x27;&lt;b class=&quot;boldest&quot;&gt;Extremely bold&lt;/b&gt;&#x27;</span>)<br>tag = s.b<br><span class="hljs-built_in">type</span>(tag)<br><span class="hljs-comment"># &lt;class &#x27;bs4.element.Tag&#x27;&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>Tag最重要的两个属性</strong></p>
+<ul>
+<li>Name</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">tag.name<br><span class="hljs-comment"># u&#x27;b&#x27;</span><br><br><span class="hljs-comment">#如果改变了tag的name,那将影响所有通过当前Beautiful Soup对象生成的HTML文档:</span><br>tag.name = <span class="hljs-string">&quot;blockquote&quot;</span><br>tag<br><span class="hljs-comment"># &lt;blockquote class=&quot;boldest&quot;&gt;Extremely bold&lt;/blockquote&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Attributes</p>
+<p>属性的操作方法与字典相同</p>
+<p>如果转换的文档是XML格式，那么tag中不包含多值属性</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#打印</span><br><span class="hljs-comment"># tag：&lt;blockquote class=&quot;boldest&quot;&gt;Extremely bold&lt;/blockquote&gt;</span><br><span class="hljs-built_in">print</span>(tag[<span class="hljs-string">&#x27;class&#x27;</span>])<br><span class="hljs-comment"># u&#x27;boldest&#x27;</span><br>tag.attrs<br><span class="hljs-comment"># &#123;u&#x27;class&#x27;: u&#x27;boldest&#x27;&#125;</span><br><br><span class="hljs-comment">#修改</span><br>tag[<span class="hljs-string">&#x27;class&#x27;</span>] = <span class="hljs-string">&#x27;verybold&#x27;</span><br>tag[<span class="hljs-string">&#x27;id&#x27;</span>] = <span class="hljs-number">1</span><br><span class="hljs-comment">#tag：&lt;blockquote class=&quot;verybold&quot; id=&quot;1&quot;&gt;Extremely bold&lt;/blockquote&gt;</span><br><br><span class="hljs-comment">#删除</span><br><span class="hljs-keyword">del</span> tag[<span class="hljs-string">&#x27;class&#x27;</span>]<br><span class="hljs-keyword">del</span> tag[<span class="hljs-string">&#x27;id&#x27;</span>]<br><span class="hljs-comment">#tag：&lt;blockquote&gt;Extremely bold&lt;/blockquote&gt;</span><br><br><span class="hljs-comment">#再次打印</span><br>tag[<span class="hljs-string">&#x27;class&#x27;</span>]<br><span class="hljs-comment"># KeyError: &#x27;class&#x27;</span><br><span class="hljs-built_in">print</span>(tag.get(<span class="hljs-string">&#x27;class&#x27;</span>))<br><span class="hljs-comment"># None</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h6 id="2-NavigableString"><a href="#2-NavigableString" class="headerlink" title="2. NavigableString"></a>2. NavigableString</h6><p>NavigableString对象支持遍历文档树和搜索文档树中定义的大部分属性， 并非全部。尤其是，一个字符串不能包含其它内容(tag能够包含字符串或是其它tag)，字符串不支持 <code>.contents</code> 或 <code>.string</code> 属性或 <code>find()</code> 方法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">s = BeautifulSoup(<span class="hljs-string">&#x27;&lt;b class=&quot;boldest&quot;&gt;Extremely bold&lt;/b&gt;&#x27;</span>, <span class="hljs-string">&#x27;html.parser&#x27;</span>)<br>tag = s.b<br>tag.string<br><span class="hljs-comment"># &#x27;Extremely bold&#x27;</span><br><span class="hljs-built_in">type</span>(tag.string)<br><span class="hljs-comment"># &lt;class &#x27;bs4.element.NavigableString&#x27;&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>tag中包含的字符串不能编辑，但是可以被替换成其它的字符串，用<code>replace_with()</code>方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">tag.string.replace_with(<span class="hljs-string">&quot;No longer bold&quot;</span>)<br>tag<br><span class="hljs-comment"># &lt;blockquote&gt;No longer bold&lt;/blockquote&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>如果想在Beautiful Soup之外使用 <code>NavigableString</code> 对象，需要调用 <code>unicode()</code> 方法，将该对象转换成普通的Unicode字符串。否则就算你已经使用完Beautiful Soup，该对象的输出也会带有对象的引用地址（？your string will carry around a reference to the entire Beautiful Soup parse tree）。这样会浪费内存。</p>
+<h6 id="3-BeautifulSoup"><a href="#3-BeautifulSoup" class="headerlink" title="3.BeautifulSoup"></a>3.BeautifulSoup</h6><p>BeautifulSoup对象表示的是一个文档的全部内容。大部分时候，可以把它当作 Tag对象。它支持遍历文档树和搜索文档树中描述的大部分的方法。</p>
+<p>可以执行组合两个已解析的文档：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">doc = BeautifulSoup(<span class="hljs-string">&quot;&lt;document&gt;&lt;content/&gt;INSERT FOOTER HERE&lt;/document&quot;</span>, <span class="hljs-string">&quot;xml&quot;</span>)<br>footer = BeautifulSoup(<span class="hljs-string">&quot;&lt;footer&gt;Here&#x27;s the footer&lt;/footer&gt;&quot;</span>, <span class="hljs-string">&quot;xml&quot;</span>)<br>doc.find(text=<span class="hljs-string">&quot;INSERT FOOTER HERE&quot;</span>).replace_with(footer)<br><span class="hljs-comment"># &#x27;INSERT FOOTER HERE&#x27;</span><br><span class="hljs-built_in">print</span>(doc)<br><span class="hljs-comment"># &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</span><br><span class="hljs-comment"># &lt;document&gt;&lt;content/&gt;&lt;footer&gt;Here&#x27;s the footer&lt;/footer&gt;&lt;/document&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>因为BeautifulSoup对象并不是真正的HTML或XML的tag，所以它没有name和attribute属性。但有时查看它的.name很有用，因此它被赋予了一个值为 “[document]” 的特殊属性 <code>.name</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">soup.name<br><span class="hljs-comment"># u&#x27;[document]&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h6 id="4-Comment（注释）"><a href="#4-Comment（注释）" class="headerlink" title="4.Comment（注释）"></a>4.Comment（注释）</h6><p>是特殊的NavigableString对象。</p>
+<p>Beautiful Soup 为可能出现在 XML 文档中的任何其他内容定义了类：CData、ProcessingInstruction、Declaration 和 Doctype。 与 Comment 一样，这些类是 NavigableString 的子类，它们向字符串添加了一些额外的东西。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup<br><span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> Doctype<br><br>markup = <span class="hljs-string">&quot;&lt;b&gt;&lt;!--Hey, buddy. Want to buy a used parser?--&gt;&lt;/b&gt;&quot;</span><br>s = BeautifulSoup(markup, <span class="hljs-string">&#x27;html.parser&#x27;</span>)<br>comment = s.b.string<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(comment))<br><span class="hljs-built_in">print</span>(comment)<br><span class="hljs-built_in">print</span>(s.b.prettify())<br><span class="hljs-comment">#结果：</span><br><span class="hljs-comment">#&lt;class &#x27;bs4.element.Comment&#x27;&gt;</span><br><span class="hljs-comment">#Hey, buddy. Want to buy a used parser?</span><br><span class="hljs-comment">#&lt;b&gt;</span><br><span class="hljs-comment"># &lt;!--Hey, buddy. Want to buy a used parser?--&gt;</span><br><span class="hljs-comment">#&lt;/b&gt;</span><br><br><span class="hljs-comment">#替换</span><br>a = Doctype(<span class="hljs-string">&quot;test&quot;</span>)<br>comment.replace_with(a)<br><span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(comment))<br><span class="hljs-built_in">print</span>(comment)<br><span class="hljs-built_in">print</span>(s.b.prettify())<br><span class="hljs-comment">#结果：</span><br><span class="hljs-comment">#&lt;class &#x27;bs4.element.Comment&#x27;&gt;</span><br><span class="hljs-comment">#Hey, buddy. Want to buy a used parser?</span><br><span class="hljs-comment">#&lt;b&gt;</span><br><span class="hljs-comment"># &lt;!DOCTYPE test&gt;</span><br><span class="hljs-comment">#&lt;/b&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="遍历文档树"><a href="#遍历文档树" class="headerlink" title="遍历文档树"></a>遍历文档树</h4><h6 id="Going-down"><a href="#Going-down" class="headerlink" title="Going down"></a>Going down</h6>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/python-%E7%88%AC%E8%99%AB-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-Beautiful-Soup/">#python 爬虫 正则表达式 Beautiful Soup</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>python爬虫相关学习</div>
+      <div>http://example.com/2022/12/27/python爬虫相关学习/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>liung</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>December 27, 2022</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/03/BeautifulSoup-4-9-0%E6%96%87%E6%A1%A3/" title="BeautifulSoup 4.9.0文档">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">BeautifulSoup 4.9.0文档</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/11/28/ssh%E6%90%AD%E5%BB%BAweb/" title="ssh搭建web">
+                        <span class="hidden-mobile">ssh搭建web</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"DXLxZik8wN8nWS8hG0jMoEMj-gzGzoHsz","appKey":"BK2RDlJBgTFqlPmZANp7TWHZ","path":"window.location.pathname","placeholder":"你好","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;Table of Contents</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        Views: 
+        <span id="busuanzi_value_site_pv"></span>
+        
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        Visitors: 
+        <span id="busuanzi_value_site_uv"></span>
+        
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
